@@ -1,0 +1,451 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+	<title>IOT03</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- PgP 7/11/2019 summative assignment for Raspberry Pi, Arduino Uno, micro:bit -->
+	<!-- Bootstrap -->
+	<link href="../../ReadOnly/bootstrap.css" rel="stylesheet">
+
+	<!-- constant file for student firstname, lastname, starid on students' pages -->
+	<script src="../constants.js"></script>
+
+	<!-- course constant file that contains semester, class, section pages -->
+	<script src="../../ReadOnly/CourseConstants.js"></script>
+
+</head>
+
+<body onload="setVariables()">
+	<form class="container-fluid" action="https://eprofessor.azurewebsites.net/code/ProcessFormData.asp" method="post" name="frmAssignment" id="frmAssignment">
+
+		<input name="InstID" type="hidden" id="InstID" value="00617282">
+
+		<h1 class="text-center">SSH-CLI Remote Control of a Raspberry Pi</h1>
+
+
+		<!-- -start-Student, class and assignment information. Assignment hard-coded, other values from constants.js file-start -->
+		<div class="row col-lg-12">
+			<div class="col-lg-3">
+				<label class="text-primary" for="FirstName">First Name:</label>
+				<input class="form-control" name="FirstName" id="FirstName" type="text" value="default first name" readonly="readonly">
+			</div>
+			<div class="col-lg-3">
+				<label class="text-primary" for="LastName">Last Name:</label>
+				<input class="form-control" name="LastName" id="LastName" type="text" value="default last name" readonly="readonly">
+			</div>
+			<div class="col-lg-3">
+				<label class="text-primary" for="pin">StarID:</label>
+				<input class="form-control" name="pin" id="pin" type="text" value="default StarID" readonly="readonly">
+			</div>
+			<div class="col-lg-3">
+				<label class="text-primary" for="email">Email:</label>
+				<input class="form-control" name="email" id="email" type="email" value="default email address" readonly="readonly">
+			</div>
+		</div>
+
+		<div class="row col-lg-12">
+			<div class="col-lg-3">
+				<label class="text-primary" for="semester">Semester:</label>
+				<input class="form-control" name="semester" id="semester" type="text" value="default" readonly="readonly">
+			</div>
+			<div class="col-lg-3">
+				<label class="text-primary" for="class">Class:</label>
+				<input class="form-control" name="class" id="class" value="xClass" type="text" readonly="readonly">
+			</div>
+			<div class="col-lg-3">
+				<label class="text-primary" for="section">Section:</label>
+				<input class="form-control" name="section" id="section" value="default" type="text" readonly="readonly">
+			</div>
+			<div class="col-lg-3">
+				<label class="text-primary" for="assignment">Assignment:</label>
+				<input class="form-control" name="assignment" id="assignment" value="IOT03" type="text" readonly="readonly">
+			</div>
+		</div>
+		<!-- -end-Student, class and assignment information-end -->
+		<br />
+
+		<!-- Calculate the correct path for saving the files -->
+		<script>Path = "&#92;OneDrive - MNSCU&#92;" + xClass + "&#92;" + document.getElementById("assignment").value + "&#92;"; </script>
+
+
+		<div class="col-lg-12">
+			<br />
+			<input class=" text-danger btn-block btn-lg" type="submit" name="Submit" value="SUBMIT -once you have completed this assignment- SUBMIT"><br />
+		</div>
+
+		<div class="h3 text-danger col-lg-12">
+			100 Points<hr />
+		</div>
+
+
+		<div class="col-lg-12"><a href="#Objectives" class="btn btn-info" data-toggle="collapse">Learning Objectives</a></div>
+		<div id="Objectives" class=" collapse in col-lg-12">
+
+			<h1>SSH-Secure SHell
+			</h1>
+
+			<p>
+				These instructions will show you how to use <a href="https://docs.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7.2" class="bg-info text-white" target="_blank">Power Shell</a> to run the <a href="https://www.ssh.com/academy/ssh">SSH</a> protocol and software on your laptop to connect to a single-board computer(SBC).<br />
+				This software allows you to run a terminal window (CLI) on a Raspberry Pi over a network using your laptop.<br />
+				This 
+                &#39;remote access&#39; technology has revolutionized the way IT professionals work, allowing them to access numerous devices all over the world from their computer.<br />
+
+				More information on <a href="https://en.wikipedia.org/wiki/Secure_Shell" class="bg-info text-white" target="_blank">Secure SHell</a> is available online.<br />
+
+				Being able to use this software will greatly simplify working with the Raspberry Pi, Arduino UNO and micro:bit.
+			</p>
+			<p>After completing this assignment you will be able to:</p>
+			<ol>
+				<li>Run PowerShell on a Windows computer</li>
+				<li>Establish an Secure SHell (SSH) between your Windows computer and a single-board computer</li>
+				<li>Issue commands to the Raspberry Pi SBC from your laptop using SSH</li>
+				<li>Update/upgrade the Raspberry Pi operating system from your laptop using SSH</li>
+			</ol>
+			<hr />
+		</div>
+
+
+
+		<div class="col-lg-12"><a href="#Overview" class="btn btn-info" data-toggle="collapse">Assignment Overview</a></div>
+			<h3>When you encounter technical issues, please first review <a href="../IOT00/IOT00.html"  class="bg-info text-white" target="_blank" >IOT00</a>.    </h3>
+
+
+		<div id="Overview" class="collapse in  col-lg-12">
+			This assignment reviews basic computer concepts that you will need in this course and throughout your career.
+            <br />
+			<p>
+				You are expected to have a working knowledge of SBC hardware and software.<br />
+				If you do not understand how to use an item, perform a Google Search, 
+                refer to the <a href="https://learn.winona.edu/WSU_Technology_Knowledge_Base" class="bg-info text-white" target="_blank">WSU Technology Knowledge Base</a>,&nbsp; ask a teaching assistant, or ask the instructor.
+			</p>
+
+			<p>
+				<a href="images/RPi3Pinout.png" class="img-responsive img-rounded" target="popup" onclick="window.open('images/RPi3Pinout.png', 'popup'); return false;">
+					<img src="images/RPi3Pinout.png" width="300" alt="Raspberry Pi 3 layout" class="img-responsive img-responsive" />
+				</a>
+				<br />
+				Figure 1-Raspberry Pi 3 B+ layout
+			</p>
+
+			<hr />
+		</div>
+
+		<!--Exercise 1-->
+
+		<div class="col-lg-12"><a href="#Exercise01" class="btn btn-info" data-toggle="collapse">Exercise 1-Setup the Raspberry Pi</a></div>
+
+		<div id="Exercise01" class="collapse in  col-lg-12">
+			<ol>
+				<li>This work is done on the Raspberry Pi.</li>
+				<li>Locate a USB keyboard and mouse.<br />
+					Plug them into available USB ports on the right side of the Pi.<br />
+					See Figure xx
+				</li>
+
+				<li>If the Pi is powered on, there is a steady red light in the lower left corner of the circuit board.<br />
+					If the Pi is not powered on, click the power button on the Pi, which should be on top or around the monitor in front of you.<br />
+					Below the red light is a green light that will flash, indicating CPU activity.</li>
+
+				<li>In the lower right corner of the landscape monitor, press the button marked with the colored dot.
+                    <br />
+					Repeatedly pressing this button toggles the monitor between displaying your laptop and the Raspberry Pi.
+				</li>
+				<li>ONLY CONNECT TO WSU GUEST NETWORK!!!<br />
+					<a href="https://eprofessor.azurewebsites.net/HelpFiles/WSU_Guest_WiFi/GuestWiFi.html" class="bg-info text-white" target="_blank">FOLLOW THESE INSTRUCTIONS</a>
+					<br />
+					When prompted make a new account, supply bogus information and log in.<br />
+					<strong>Note: periodically you will need to open the Raspberry Pi browser to 'winona.edu' or other website, and repeat the WSU Guest Network login process.</strong>
+				</li>
+
+				<li>In the upper right corner of the desktop view the Raspberry Pi IP address.<br />
+
+					<a href="images/BootDesktop.PNG" class="img-responsive img-rounded" target="popup" onclick="window.open('images/BootDesktop.PNG', 'popup'); return false;">
+						<img src="images/BootDesktop.PNG" width="300" alt="Raspberry Pi Desktop" class="img-responsive img-responsive" />
+					</a>
+					<br />
+					Figure 2-Raspberry Pi Desktop<br />
+					<br />
+				</li>
+
+
+
+			</ol>
+			<hr />
+		</div>
+
+
+
+		<!--Exercise 2-->
+
+		<div class="col-lg-12"><a href="#Exercise02" class="btn btn-info" data-toggle="collapse">Exercise 2-Connect with PowerShell</a></div>
+
+		<div id="Exercise02" class="collapse in  col-lg-12">
+
+			<ol>
+
+				<li>These steps are performed on your laptop.</li>
+
+				<li>
+					<p>
+						Your laptop MUST be connected to the WSU network with a WIRED connection, a wireless connection will NOT work.<br />
+						Look for this icon in your task tray:
+                <img src="images/WiredNetwork.PNG" alt="wired connection" class="img-responsive img-responsive" />Wired Network Connection Icon
+					</p>
+				</li>
+
+
+				<li>Open Windows PowerShell by clicking Start&gt; type &#39;PowerShell&#39;</li>
+				<li>At the PowerShell command line type: ssh pi@xxx.xxx.xxx.xxx replacing the xxx with the Raspberry Pi IP address retrieved above.<br />
+					When prompted for the Raspberry Pi password enter  &#39;W1n0nA&#39;&nbsp; Refer to the figure above.<br />
+
+					<a href="images/PowerShellLogin.PNG" class="img-responsive img-rounded" target="popup" onclick="window.open('images/PowerShellLogin.PNG', 'popup'); return false;">
+						<img src="images/PowerShellLogin.PNG" width="300" alt="PowerShell SSH login" class="img-responsive img-responsive" />
+					</a>
+					<br />
+					Figure 3-PowerShell Interface<br />
+					<br />
+				</li>
+
+			</ol>
+
+
+			<hr />
+		</div>
+
+
+		<!--Exercise 3-->
+
+		<div class="col-lg-12"><a href="#Exercise03" class="btn btn-info" data-toggle="collapse">Exercise 3-Working With SSH</a></div>
+
+		<div id="Exercise03" class="collapse in  col-lg-12">
+
+			<ol>
+
+				<li>These steps are done on your laptop. </li>
+
+				<li>There is no graphical user interface in PowerShell/SSH, you must type in all commands.<br />
+					If you need help, simply type in &#39;help&#39; and press enter to see a list of available commands.<br />
+				</li>
+
+
+				<li>
+					<p>
+						To keep your Raspberry Pi software secure and up to date, every moring a program runs to apply the latest program patches and security fixes.<br />
+                        This can be done at any time by typing in the following commands, pressing Enter after each one:<br />
+						<code>sudo apt update</code><br />
+						<code>sudo apt upgrade</code>
+						<br />
+						You will be prompted to continue, press &#39;y&#39;<br />
+						During this process read and comprehend any messages.<br />
+						Depending on how much updating is being done, it may take a while.<br />
+						If something goes wrong, there will be an explanation of how to proceed.<br />
+						See a teaching assistant or professor for help.<br />
+
+
+						<a href="images/UpdateUpgrade.PNG" class="img-responsive img-rounded" target="popup" onclick="window.open('images/UpdateUpgrade.PNG', 'popup'); return false;">
+							<img src="images/UpdateUpgrade.PNG" width="300" alt="RPi update" class="img-responsive img-responsive" /></a><br />
+						Figure 4-Update Raspberry Pi-your messages will be different<br />
+
+					</p>
+				</li>
+
+				<li>In the PowerShell-SSH window install the Matrix program, if it is not already installed.<br />
+					Enter the following text, then press the enter key:<br />
+					<code>sudo apt-get install cmatrix</code>
+
+
+
+				</li>
+
+
+				<li>After cmatrix is installed, type in, then press the enter key:<br />
+					<code>cmatrix</code><br />
+					You will see a matrix program running on the Raspberry Pi.<br />
+					Press the q key to quit the program, and return to PowerShell/SSH.<br />
+					Feel free to explore the available options.<br />
+					reference:  <a href="http://reefwingrobotics.blogspot.com/2017/01/raspberry-pi-console-matrix-screensaver.html" class="bg-info text-white" target="_blank">http://reefwingrobotics.blogspot.com/2017/01/raspberry-pi-console-matrix-screensaver.html </a>
+					<br />
+				</li>
+
+				<li>
+					<p>
+						Type <code>cmatrix -h</code> and press enter to view the command line options.
+					</p>
+				</li>
+
+				<li>
+					<p>
+						Type <code>cmatrix -b -s</code> and press enter to see the program start with bold font characters, and ???<br />
+
+
+						<a href="images/CmatrixScreenShot.PNG" class="img-responsive img-rounded" target="popup" onclick="window.open('images/CmatrixScreenShot.PNG', 'popup'); return false;">
+							<img src="images/CmatrixScreenShot.PNG" width="300" alt="Cmatrix Screen Shot of PowerShell-SSH window" class="img-responsive img-responsive" /></a><br />
+						Figure 5-cmatrix running, press &#39;q&#39; to stop...<br />
+					</p>
+				</li>
+
+				<li>Press the 'q' key to return to the PowerShell/SSH window.<br />
+					You are going to take a screen shot of this window for the next exercise.
+				</li>
+
+
+			</ol>
+			<hr />
+		</div>
+
+
+
+
+
+
+		<!--Exercise 4-->
+
+		<div class="col-lg-12"><a href="#Exercise04" class="btn btn-info" data-toggle="collapse">Exercise 4-Screenshot</a></div>
+
+		<div id="Exercise04" class="collapse in  col-lg-12">
+
+			<p>
+				Use the Snipping Tool on your laptop to take a screenshot of the PowerShell-SSH window running cmatrix in the previous exercise.<br />
+
+				Your screen shot will look something like this:
+				<br />
+
+				<a href="images/CmatrixScreenShot.PNG" class="img-responsive img-rounded" target="popup" onclick="window.open('images/CmatrixScreenShot.PNG', 'popup'); return false;">
+					<img src="images/CmatrixScreenShot.PNG" width="300" alt="Cmatrix Screen Shot of PowerShell-SSH window" class="img-responsive img-responsive" /></a>
+				<br />
+				Figure 6-SSH Window Sample Screenshot<br />
+				<br />
+
+
+				Save the screenshot  as &quot;IOT03&quot; in your ' 
+             <code><span id="abPath"></span></code>
+				<script>document.getElementById("abPath").innerHTML = Path; </script>
+				' folder.<br />
+
+			</p>
+
+			<p>
+				In PowerShell type logout to close the SSH connection to the Raspberry Pi.<br />
+				<a href="images/PowerShellSSH_Logout.PNG" class="img-responsive img-rounded" target="popup" onclick="window.open('images/PowerShellSSH_Logout.PNG', 'popup'); return false;">
+					<img src="images/PowerShellSSH_Logout.PNG" width="300" alt="cmatrix" class="img-responsive img-responsive" /></a>
+				<br />
+				Figure 7- Close RPi Connection<br />
+
+			</p>
+
+			<hr />
+		</div>
+
+
+		<div class="col-lg-12 text-danger">
+			<h2>Screenshot IOT03</h2>
+			<hr />
+		</div>
+
+
+
+
+
+
+		<div class="col-lg-12"><a href="#UploadScreenShot" class="btn btn-info" data-toggle="collapse">Upload Screenshot</a></div>
+
+		<div id="UploadScreenShot" class="collapse in  col-lg-12">
+			<p>
+				Submit to the appropriate D2L Assignment folder a screenshot that documents your work, showing cmatrix running in a PowerShell ssh session.<br />
+			</p>
+			<br />
+		</div>
+
+		<div class="col-lg-12 text-primary">
+			<p>
+				(70) 1. Upload your screenshot to the &#39;IOT03&#39; D2L Assignment Folder.
+			</p>
+			<hr />
+		</div>
+
+
+
+		<!--Exercise 5-->
+
+		<div class="col-lg-12"><a href="#Exercise05" class="btn btn-info" data-toggle="collapse">Exercise 5-Reflection</a></div>
+
+		<div id="Exercise05" class="collapse in  col-lg-12">
+
+			<p>
+				Based on your experience in this exercise and what you just learned, develop a brief statement about the value of SSH as a remote access tool for organizations.<br />
+				Think about what type of problems these devices could solve, and would it be cost-effective?<br />
+				Consider businesses that deploy IoT 'solutions', on the order of thousands or millions of devices-how can support of these devices be automated?<br />
+				References:<br />
+				<a href="https://www.techtarget.com/searchsecurity/definition/Secure-Shell" target="_blank" class="bg-info text-white">TechTarget-Secure Shell</a><br />
+				<a href="https://www.keyfactor.com/blog/ssh-protocol" target="_blank" class="bg-info text-white">KeyFactor-The What, Why &amp; How of SSH Protocol</a>
+				<br />
+				<a href="https://www.balena.io" target="_blank" class="bg-info text-white" >Balena Cloud</a> -an example of a platform for controlling, supporting, administering large numbers of IoT devices<br />
+
+				<a href="https://www.heroku.com/" target="_blank" class="bg-info text-white"  >Heroku </a> - a managed container system for deploying and running apps
+			</p>
+
+			<div class="col-lg-12 text-primary">
+				(20) 2. Reflections<br />
+
+				<!-- Enter your answer in the VALUE field below   GROK -->
+				<input class="form-control" name="q2" type="text" id="q2" value="value of SSH remote access:">
+				<hr />
+			</div>
+
+			<hr />
+
+			<hr />
+		</div>
+
+
+
+
+		<div class="col-lg-12"><a href="#ExerciseSubmit" class="btn btn-info" data-toggle="collapse">Submit Assignment</a></div>
+		<div id="ExerciseSubmit" class="collapse in  col-lg-12">
+
+			<div class="col-lg-12">
+				<p>
+					When all tasks are completed press the Submit button.
+				</p>
+				<hr />
+			</div>
+
+			<div class="col-lg-12 text-primary">
+				(10) 3. Assignment submission<br />
+
+				<!-- Enter your answer in the VALUE field below   GROK -->
+				<input class="form-control" name="q3" type="text" id="q3" value="I have completed all the exercises, and uploaded my screenshot to the D2L Assignment folder IOT03.">
+				<hr />
+			</div>
+		</div>
+
+
+		<hr />
+
+
+		<div class=" col-lg-12">
+			<br />
+			<input class=" text-danger btn-block btn-lg" type="submit" name="Submit" value="SUBMIT -once you have completed this assignment- SUBMIT">
+			<br />
+		</div>
+
+	</form>
+
+	<!-- Creative Commons License Info -->
+	<div id="xLicense" class=" col-lg-12 text-muted"></div>
+
+	<div id="xfooter" class=" col-lg-12 text-muted"></div>
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="../../ReadOnly/jquery-1.js"></script>
+
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="../../ReadOnly/bootstrap.js"></script>
+
+
+</body>
+</html>
