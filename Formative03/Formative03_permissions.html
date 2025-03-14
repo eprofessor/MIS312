@@ -1,0 +1,323 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- PgP 6/15/2019 update page, added integral check web db submissions, split constants into two files, one for students, one for course -->
+    <!-- Bootstrap -->
+    <link href="../../ReadOnly/bootstrap.css" rel="stylesheet">
+
+    <!-- constant file for student firstname, lastname, starid on students' pages -->
+    <script src="../constants.js"></script>
+
+    <!-- course constant file that contains semester, class, section pages -->
+    <script src="../../ReadOnly/CourseConstants.js"></script>
+
+    <title>MIS312 Formative03</title>
+</head>
+
+<body onload="setVariables()">
+
+    <form class="container-fluid" action="https://eprofessor.azurewebsites.net/code/ProcessFormData.asp" method="post" name="frmAssignment" id="frmAssignment">
+        <input name="InstID" id="InstID" value="00617282" type="hidden" />
+
+        <h1 class=" text-center">Python Desktop Shortcuts</h1>
+
+        <!-- -start-Student, class and assignment information. Assignment hard-coded, other values from constants.js file-start -->
+        <div class="row col-lg-12">
+            <div class="col-lg-3">
+                <label class="text-primary" for="FirstName">First Name:</label>
+                <input class="form-control" name="FirstName" id="FirstName" type="text" value="default first name" readonly="readonly" />
+            </div>
+            <div class="col-lg-3">
+                <label class="text-primary" for="LastName">Last Name:</label>
+                <input class="form-control" name="LastName" id="LastName" type="text" value="default last name" readonly="readonly" />
+            </div>
+            <div class="col-lg-3">
+                <label class="text-primary" for="pin">StarID:</label>
+                <input class="form-control" name="pin" id="pin" type="text" value="default StarID" readonly="readonly" />
+            </div>
+            <div class="col-lg-3">
+                <label class="text-primary" for="email">Email:</label>
+                <input class="form-control" name="email" id="email" type="email" value="default email address" readonly="readonly" />
+            </div>
+        </div>
+
+
+        <div class="row col-lg-12">
+            <div class="col-lg-3">
+                <label class="text-primary" for="semester">Semester:</label>
+                <input class="form-control" name="semester" id="semester" type="text" value="default" readonly="readonly" />
+            </div>
+            <div class="col-lg-3">
+                <label class="text-primary" for="class">Class:</label>
+                <input class="form-control" name="class" id="class" value="xClass" type="text" readonly="readonly" />
+            </div>
+            <div class="col-lg-3">
+                <label class="text-primary" for="section">Section:</label>
+                <input class="form-control" name="section" id="section" value="default" type="text" readonly="readonly" />
+            </div>
+            <div class="col-lg-3">
+                <label class="text-primary" for="assignment">Assignment:</label>
+                <input class="form-control" name="assignment" id="assignment" value="Formative03" type="text" readonly="readonly" />
+            </div>
+        </div>
+        <!-- -end-Student, class and assignment information-end -->
+
+        <!-- Calculate the correct path for saving the files -->
+        <script>Path = "&#92;OneDrive - MNSCU&#92;" + xClass + "&#92;" + document.getElementById("assignment").value + "&#92;"; </script>
+
+
+        <div class="col-lg-12">
+            <br />
+            <input class="text-danger btn-block btn-lg" name="Submit" value="Submit" type="submit" />
+            <br />
+        </div>
+
+        <div class="col-lg-12 h3 text-danger">
+            300 Points
+            <hr />
+        </div>
+
+        <!-- -start-objectives-start -->
+        <div class="col-lg-12"><a href="#Objectives" class="btn btn-info" data-toggle="collapse">Learning Objectives</a></div>
+        <div id="Objectives" class=" collapse in col-lg-12">
+
+            <!--Above this line similar except for Assignment number and title   -->
+
+
+            <p>This assignment introduces ways to create Python executables and desktop shortcuts.</p>
+
+            <hr />
+        </div>
+
+
+
+        <div class="col-lg-12"><a href="#Overview" class="btn btn-info" data-toggle="collapse">Assignment Overview</a></div>
+
+        <div id="Overview" class="collapse in">
+            <div class="col-lg-12">
+                <p>
+                    The purpose of this assignment is to use gain experience creating executable Python files and desktop shortcuts.<br />        
+                </p>
+                <hr />
+            </div>
+
+        </div>
+
+        <div class=" col-lg-12"><a href="#Exercise01" class="btn btn-info" data-toggle="collapse">Exercise 1-Desktop Shortcuts</a></div>
+
+        <div id="Exercise01" class="collapse in">
+            <div class="col-lg-12">
+                <p>Using VNC connect to your Raspberry Pi, and open a Terminal window.<br />
+                    Terminal opens to the 'home/pi' directory.<br />
+                    Navigate to the Desktop/IoT_Files directory using the appropriate commands.<br />
+              <a href="images/directoryList.PNG" class="img-responsive img-rounded" target="popup" onclick="window.open('Images/directoryList.PNG', 'popup'); return false;">
+                            <img src="images/directoryList.PNG" class="img-rounded img-responsive" alt="Directory Listing" width="300" /></a> <br />
+                    Directory Listing<br />
+
+                    <br />
+                    Note that files and folders are color-coded:<br /><br />
+
+                    White: General file <br />
+                    Blue:  Directory<br />
+                    Green: Executable or recognized data file<br />
+                    Magenta (Pink): Graphic file<br />
+                    Cyan (Sky Blue): Symbolic link file<br />
+                </p>
+
+                <p>Note that these colors can be changed, and there are more of them.<br />
+
+                    More information is available by entering the following command in the terminal:  <code>man dir_colors</code>
+                </p>
+
+            </div>
+
+
+
+            <div class="col-lg-12">
+                <p>
+                    For this  Exercise we want to make a Python file located in the 'IoT_Files folder executable.  <br />
+
+                    The command to do so is:<br />
+                    <code>sudo chmod +x {filename}</code>
+                </p>
+
+              
+                <p>
+                    Note that the GrovePi library, <a href="grovepi.txt"  ></a>
+                    reference:  <a href="https://github.com/DexterInd/GrovePi" class="bg-info text-white" target="_blank"  >grovepi.txt</a>, has been included in this assignment.<br />
+                    The file extension was changed from .py to .txt to allow downloading from the website.<br />
+                    Copy this file to your Formative02 assignment folder.<br />
+
+                    Save the file  as &quot;grovepi.py&quot; in your ' 
+                <code><span id="aPath"></span></code>
+                    <script>document.getElementById("aPath").innerHTML = Path </script>
+                    ' folder.<br />
+
+                </p>
+
+                <p>
+                    Next create and save the file &#39;Formative02.py&#39; in this same location.<br />
+                </p>
+            </div>
+
+            <div>
+                <div class="col-lg-12 ">
+
+                    <p>
+                        In the Thonny shell on your laptop, enter <code>import grovepi
+                        </code>
+                        <br />
+                        If an error appears, enter it below, and briefly describe how to resolve the error.<br />
+
+
+                        (50) 1. What is the error, if any? :<br />
+                        <!-- Enter your answer in the VALUE field below   GROK -->
+                        <input name="q1" type="text" id="q1" size="150" maxlength="150" class="form-control" value="error, resolution:" />
+                        <br />
+
+                        Hint: Tools&gt;Manage Packages
+
+                    </p>
+                    <hr />
+
+
+
+                    <p>
+                        Now open Thonny on the Raspberry Pi.
+                        <br />
+
+                        Open and save a new python file, Formative02.py<br />
+
+                        In the interactive shell, enter
+                        <br />
+                        <code>import grovepi</code>
+                        <br />
+                        Then enter
+                        <br />
+                        <code>print(grovepi)</code><br />
+                        <br />
+
+
+
+                        (50) 2. Explain the output of the print() command:<br />
+                        <!-- Enter your answer in the VALUE field below   GROK -->
+                        <input name="q2" type="text" id="q2" size="150" maxlength="150" class="form-control" value="output:" />
+                        <br />
+                    </p>
+                    <hr />
+
+
+                    <p>
+                        In the interactive shell enter:
+
+                        <code>help(grovepi) </code>
+                        <br />
+                        <br />
+
+                        ref:  <a href="https://www.programiz.com/python-programming/docstrings" class="bg-info text-white" target="_blank">see Example 7</a>
+
+                        <br />
+
+
+                        (50) 3. Explain the output. 
+                        <br />
+                        In other words-how was the output  &#39;help(grovepi)&#39; generated?<br />
+                        <!-- Enter your answer in the VALUE field below   GROK -->
+                        <input name="q3" type="text" id="q3" size="150" maxlength="150" class="form-control" value="result:" />
+                        <br />
+                    </p>
+                    <hr />
+
+
+
+
+
+        <hr />
+
+
+
+
+
+
+        <p>
+            Now reflect with trying to use the GrovePi library on your laptop.
+        </p>
+
+        <p>
+
+
+
+
+
+
+        <p>
+            Why can you not run the GrovePi library on your laptop?
+            <br />
+
+
+            (50) 4. Provide a brief reason:<br />
+            <!-- Enter your answer in the VALUE field below   GROK -->
+            <input name="q4" type="text" id="q4" size="200" maxlength="200" class="form-control" value="reason:" />
+            <br />
+        </p>
+        <hr />
+
+                </div>
+
+
+            </div>
+        </div>
+
+        <!--  From here to end difference question numbers and Summative numbering for PDF of file uploaded to D2L    -->
+
+
+        <div class="col-lg-12"><a href="#ExerciseAssignmentSubmission" class="btn btn-info" data-toggle="collapse">Exercise-Assignment Submission</a></div>
+
+        <div id="ExerciseAssignmentSubmission" class="collapse in  col-lg-12">
+            <p>
+                Use a browser to view your completed and published website at: https://classes.winona.edu/...     
+            </p>
+
+            (50) 5. Home Page Hyperlink<br />
+            Check and verify that this assignment is hyperlinked on your home page.<br />
+            <br />
+
+            (50) 6. Assignment submission<br />
+            Press the Submit button at the top or bottom of this page.
+                Read and follow instructions on the confirmation page.&nbsp; Correct any errors.
+        </div>
+        <hr />
+
+
+
+
+
+        <div class="col-lg-12">
+            <br />
+            <input class="text-danger btn-block btn-lg" name="Submit" value="Submit" type="submit" />
+            <br />
+        </div>
+
+
+    </form>
+
+
+
+    <!-- Creative Commons License Info -->
+    <div id="xLicense" class=" col-lg-12 text-muted"></div>
+
+    <div id="xfooter" class=" col-lg-12 text-muted"></div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../../ReadOnly/jquery-1.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../../ReadOnly/bootstrap.js"></script>
+
+</body>
+</html>
