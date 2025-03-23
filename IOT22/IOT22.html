@@ -1,0 +1,362 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+    <title>IOT22</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- PgP 7/11/2019 summative assignment for Raspberry Pi, Arduino Uno, micro:bit -->
+    <!-- Bootstrap -->
+    <link href="../../ReadOnly/bootstrap.css" rel="stylesheet">
+
+    <!-- constant file for student firstname, lastname, starid on students' pages -->
+    <script src="../constants.js"></script>
+
+    <!-- course constant file that contains semester, class, section pages -->
+    <script src="../../ReadOnly/CourseConstants.js"></script>
+
+</head>
+
+<body onload="setVariables()">
+    <form class="container-fluid" action="https://eprofessor.azurewebsites.net/code/ProcessFormData.asp" method="post" name="frmAssignment" id="frmAssignment">
+
+        <input name="InstID" type="hidden" id="InstID" value="00617282">
+
+        <h1 class="text-center">Network Scanning Using Python on a Raspberry Pi</h1>
+
+
+        <!-- -start-Student, class and assignment information. Assignment hard-coded, other values from constants.js file-start -->
+        <div class="row col-lg-12">
+            <div class="col-lg-3">
+                <label class="text-primary" for="FirstName">First Name:</label>
+                <input class="form-control" name="FirstName" id="FirstName" type="text" value="default first name" readonly="readonly">
+            </div>
+            <div class="col-lg-3">
+                <label class="text-primary" for="LastName">Last Name:</label>
+                <input class="form-control" name="LastName" id="LastName" type="text" value="default last name" readonly="readonly">
+            </div>
+            <div class="col-lg-3">
+                <label class="text-primary" for="pin">StarID:</label>
+                <input class="form-control" name="pin" id="pin" type="text" value="default StarID" readonly="readonly">
+            </div>
+            <div class="col-lg-3">
+                <label class="text-primary" for="email">Email:</label>
+                <input class="form-control" name="email" id="email" type="email" value="default email address" readonly="readonly">
+            </div>
+        </div>
+
+        <div class="row col-lg-12">
+            <div class="col-lg-3">
+                <label class="text-primary" for="semester">Semester:</label>
+                <input class="form-control" name="semester" id="semester" type="text" value="default" readonly="readonly">
+            </div>
+            <div class="col-lg-3">
+                <label class="text-primary" for="class">Class:</label>
+                <input class="form-control" name="class" id="class" value="xClass" type="text" readonly="readonly">
+            </div>
+            <div class="col-lg-3">
+                <label class="text-primary" for="section">Section:</label>
+                <input class="form-control" name="section" id="section" value="default" type="text" readonly="readonly">
+            </div>
+            <div class="col-lg-3">
+                <label class="text-primary" for="assignment">Assignment:</label>
+                <input class="form-control" name="assignment" id="assignment" value="IOT22" type="text" readonly="readonly">
+            </div>
+        </div>
+        <!-- -end-Student, class and assignment information-end -->
+        <br />
+
+        <!-- Calculate the correct path for saving the files -->
+        <script>Path = "&#92;OneDrive - MNSCU&#92;" + xClass + "&#92;" + document.getElementById("assignment").value + "&#92;"; </script>
+
+
+        <div class="col-lg-12">
+            <br />
+            <input class=" text-danger btn-block btn-lg" type="submit" name="Submit" value="SUBMIT -once you have completed this assignment- SUBMIT"><br />
+        </div>
+
+        <div class="h3 text-danger col-lg-12">
+            100 Points<hr />
+        </div>
+
+
+
+        <div class="col-lg-12"><a href="#Objectives" class="btn btn-info" data-toggle="collapse">Learning Objectives</a></div>
+        <div id="Objectives" class=" collapse in col-lg-12">
+
+
+            <p>
+                These instructions will show you how a Raspberry Pi and 
+                Python code can scan and monitor a network.<br />
+                Only scan networks for which you have permission. Do not act maliciously-this assignment is for educational purposes.<br />
+                <br />
+
+                More information on the <a href="https://pypi.org/project/networkscan/"  class="bg-info text-white" target="_blank"   >Network Scan </a> library that you will use is available online.<br />
+            </p>
+
+            <p>After completing this assignment you will be able to:</p>
+            <ol>
+                <li>Investigate Python libraries</li>
+                <li>Run Python programs on a Raspberry Pi that perform special purpose network functions such as scanning</li>
+                <li>Discuss uses of Raspberry Pi as devices to monitor network status</li>
+            </ol>
+            <hr />
+        </div>
+
+
+
+        <div class="col-lg-12"><a href="#Overview" class="btn btn-info" data-toggle="collapse">Assignment Overview</a></div>
+			<h3>When you encounter technical issues, please first review <a href="../IOT00/IOT00.html"  class="bg-info text-white" target="_blank" >IOT00</a>.    </h3>
+
+        <div id="Overview" class="collapse in  col-lg-12">
+            This assignment reviews Internet of Things concepts that you will need in this course and throughout your career.
+            <br />
+            <p>
+                You are expected to have a working knowledge of SBC hardware and software.<br />
+                If you do not understand how to use an item, perform a Google Search, 
+                refer to the <a href="https://learn.winona.edu/wiki/WSU_Technology_Knowledge_Base" class="bg-info text-white" target="_blank">WSU Technology Knowledge Base</a>,&nbsp; ask a teaching assistant, or ask the instructor.
+            </p>
+
+            <hr />
+        </div>
+
+        <!--Exercise 1-->
+
+        <div class="col-lg-12"><a href="#Exercise01" class="btn btn-info" data-toggle="collapse">Exercise 1-Python Network Scan Library</a><a href="#Exercise01"> </a></div>
+
+        <div id="Exercise01" class="collapse in  col-lg-12">
+
+            <ol>
+                <li>These steps are performed on your computer.</li>
+
+                <li>Open a browser.</li>
+
+                <li>Browse to the following webpage: <a class="bg-info text-white" href="https://pypi.org/project/networkscan/" target="_blank">networkscan</a> which is located in the pypi.org website.</li>
+
+                <li>
+                    Review the information provided here.
+                </li>
+
+                <li>Use VNC to transfer the file &#39;<a class="bg-info text-white" href="scannetwork.txt" target="_blank">  scannetwork.py  </a>&#39; (available at .txt-rename to .py) from your computer to the Raspberry Pi, and place it in the folder &#39;/home/pi/Desktop/IoT_Files&#39;<br />
+                    Note- a copy can be found in the OneDrive - MNSCU/ReadOnly/IoT/IoT_PythonFiles folder.
+                </li>
+
+             </ol>
+
+        </div>
+
+
+
+        <!--Exercise 2-->
+
+        <div class="col-lg-12"><a href="#Exercise02" class="btn btn-info" data-toggle="collapse">Exercise 2-Scan a Network</a></div>
+
+        <div id="Exercise02" class="collapse in  col-lg-12">
+
+            <ol>
+                <li>These steps are performed on your Raspberry Pi.</li>
+
+                <li>Launch a Terminal window</li>
+
+                <li>Run the following command to ensure the Python Package installer is present.<br />
+                    <code>sudo apt-get install python3-pip</code>
+                </li>
+
+                <li>Run the following command to ensure that the Networkscan library is installed.<br />
+                    <code>pip3 install networkscan</code>
+                </li>
+
+
+                <li>Launch Thonny</li>
+
+                <li>Load the program /home/pi/Desktop/IoT_Files/scannetwork.py </li>
+                <li>In the program, on about line 12, adjust the ip address of the network to scan.<br />
+                    Remember that VNC provides the network address of your Raspberry Pi.  Do a /24 scan.<br />
+
+
+                    <p>
+                        <a href="images/RPiNetwork.PNG" class="img-responsive img-rounded" target="popup" onclick="window.open('images/RPiNetwork.PNG', 'popup'); return false;">
+                            <img src="images/RPiNetwork.PNG" width="200" alt="RPi Network" class="img-responsive img-responsive" /></a>Rasbberry Pi Network<br />
+                    </p>
+
+                </li>
+
+                <li>Run the program <code>scannetwork.py</code> </li>
+
+
+
+                <li>   Examine the output shell to make sure that the network scan data appears, and is reasonable.  </li>
+
+
+                <li> Review the program <code>scannetwork.py</code> and think about improvements that could be made.  </li>
+
+            </ol>
+            <hr />
+        </div>
+
+
+
+
+        <!--Exercise 3-->
+
+
+        <div class="col-lg-12"><a href="#Exercise03" class="btn btn-info" data-toggle="collapse">Exercise 3-Screenshot</a></div>
+
+        <div id="Exercise03" class="collapse in  col-lg-12">
+
+            <p>
+                These steps are done on your laptop using VNC.
+            </p>
+
+
+            <ol>
+
+                <li>Use the Snipping tool to take a screenshot with the results of the network scan.<br />
+
+                    <p>
+                        <a href="images/scan.PNG" class="img-responsive img-rounded" target="popup" onclick="window.open('images/scan.PNG', 'popup'); return false;">
+                            <img src="images/scan.PNG" width="400" alt="network scan" class="img-responsive img-responsive" /></a>Python networkscan<br />
+                    </p>
+                </li>
+
+                <li>On your laptop save the screenshot  as &quot;IOT22&quot; in your ' <code><span id="abPath"></span></code>
+                    <script>document.getElementById("abPath").innerHTML = Path; </script>
+                    ' folder.<br />
+
+            </ol>
+            <hr />
+        </div>
+
+
+        <div class="col-lg-12 text-danger">
+            <h2>Screenshot IOT22</h2>
+            <hr />
+        </div>
+
+
+
+        <div class="col-lg-12"><a href="#UploadScreenShot" class="btn btn-info" data-toggle="collapse">Upload Screenshot</a></div>
+
+        <div id="UploadScreenShot" class="collapse in  col-lg-12">
+            <p>
+                Submit to the appropriate D2L Assignment folder a screenshot that documents your work.<br />
+            </p>
+            <br />
+        </div>
+
+        <div class="col-lg-12 text-primary">
+            <p>
+                (50) 1. Upload your screenshot to the &#39;IOT22&#39; D2L Assignment Folder.
+            </p>
+            <hr />
+        </div>
+
+
+
+
+        <!--Exercise 4-->
+
+        <div class="col-lg-12"><a href="#Exercise04" class="btn btn-info" data-toggle="collapse">Exercise 4-Reflections</a></div>
+
+        <div id="Exercise04" class="collapse in  col-lg-12">
+
+            <p>
+                Reflect on the value of IoT devices that can monitor networkdevices- for organizations, especially those with many installed devices, many visiting devices, and anything else that can cause potential network problems.<br />
+                Think about what type of problems a Raspberry Pi equipped with scanning and monitoring programs could solve, and whether it could be cost-effective and robust.<br />
+                Consider how to use network scan data over time, what could be learned?<br />
+                Businesses are deploying IoT 'solutions'-how can Python programs on Raspberry Pis support these efforts?<br />
+                <br />
+                References:<br />
+                Ajay's blog: <a href="https://www.jigsawacademy.com/blogs/cyber-security/network-scanning" class="bg-info text-white" target="_blank"  > Network Scanning Guide  </a><br />
+
+                Some available tools:&nbsp; <a href="https://www.softwaretestinghelp.com/network-scanning-tools/" class="bg-info text-white" target="_blank"  >Network Scanning Tools</a>
+            </p>
+            <div class="col-lg-12 text-primary">
+                (20) 2. Reflections-opportunities<br />
+                List a specific business opportunity that a Raspberry Pi that periodically scans a network could provide.<br />
+
+                <!-- Enter your answer in the VALUE field below   GROK -->
+                <input class="form-control" name="q2" type="text" id="q2" value="opportunity:">
+                <hr />
+            </div>
+
+
+
+            <div class="col-lg-12 text-primary">
+                (20) 3. Reflections-beyond networking<br />
+                Research the <a href="https://flipperzero.one/" class="bg-info text-white" target="_blank"  >Flipper Zero</a>.<br />
+                Is this device a replacement for network scanning, or a complement to network scanning? <br />
+
+                <!-- Enter your answer in the VALUE field below   GROK -->
+                <input class="form-control" name="q3" type="text" id="q3" value="Flipper Zero use: ">
+                <hr />
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+
+        <div class="col-lg-12"><a href="#ExerciseSubmit" class="btn btn-info" data-toggle="collapse">Submit Assignment</a></div>
+
+
+        <div class="col-lg-12">
+            <p>
+                When all tasks are completed press the Submit button.
+            </p>
+            <hr />
+        </div>
+
+        <div class="col-lg-12 text-primary">
+            (10) 4. Assignment submission<br />
+            <!-- Enter your answer in the VALUE field below   GROK -->
+            <input class="form-control" name="q4" type="text" id="q4" value="I have completed all the exercises, and uploaded my screenshot to the D2L Assignment folder IOT22.">
+            <hr />
+        </div>
+
+
+
+
+
+        <div class="col-lg-12">
+            <p>
+                Congratulations! You have used the Raspberry Pi to scan a network.                
+            </p>
+            <hr />
+        </div>
+
+
+
+
+
+        <div class=" col-lg-12">
+            <br />
+            <input class=" text-danger btn-block btn-lg" type="submit" name="Submit" value="SUBMIT -once you have completed this assignment- SUBMIT">
+            <br />
+        </div>
+
+    </form>
+
+    <!-- Creative Commons License Info -->
+    <div id="xLicense" class=" col-lg-12 text-muted"></div>
+
+    <div id="xfooter" class=" col-lg-12 text-muted"></div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../../ReadOnly/jquery-1.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../../ReadOnly/bootstrap.js"></script>
+
+
+</body>
+</html>
+
+
