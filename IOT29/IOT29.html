@@ -1,0 +1,348 @@
+<!doctype html>
+
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- PgP 6/15/2019 update page, added integral check web db submissions, split constants into two files, one for students, one for course -->
+    <!-- Bootstrap -->
+    <link href="../../ReadOnly/bootstrap.css" rel="stylesheet">
+
+    <!-- constant file for student firstname, lastname, starid on students' pages -->
+    <script src="../constants.js"></script>
+
+    <!-- course constant file that contains semester, class, section pages -->
+    <script src="../../ReadOnly/CourseConstants.js"></script>
+
+    <title>IOT29</title>
+</head>
+
+<body onload="setVariables()">
+
+    <form class="container-fluid" action="https://eprofessor.azurewebsites.net/code/ProcessFormData.asp" method="post" name="frmAssignment" id="frmAssignment">
+        <input name="InstID" id="InstID" value="00617282" type="hidden" />
+
+        <h1 class=" text-center">Python GUI on Raspberry Pi</h1>
+
+        <!-- -start-Student, class and assignment information. Assignment hard-coded, other values from constants.js file-start -->
+        <div class="row col-lg-12">
+            <div class="col-lg-3">
+                <label class="text-primary" for="FirstName">First Name:</label>
+                <input class="form-control" name="FirstName" id="FirstName" type="text" value="default first name" readonly="readonly" />
+            </div>
+            <div class="col-lg-3">
+                <label class="text-primary" for="LastName">Last Name:</label>
+                <input class="form-control" name="LastName" id="LastName" type="text" value="default last name" readonly="readonly" />
+            </div>
+            <div class="col-lg-3">
+                <label class="text-primary" for="pin">StarID:</label>
+                <input class="form-control" name="pin" id="pin" type="text" value="default StarID" readonly="readonly" />
+            </div>
+            <div class="col-lg-3">
+                <label class="text-primary" for="email">Email:</label>
+                <input class="form-control" name="email" id="email" type="email" value="default email address" readonly="readonly" />
+            </div>
+        </div>
+
+
+        <div class="row col-lg-12">
+            <div class="col-lg-3">
+                <label class="text-primary" for="semester">Semester:</label>
+                <input class="form-control" name="semester" id="semester" type="text" value="default" readonly="readonly" />
+            </div>
+            <div class="col-lg-3">
+                <label class="text-primary" for="class">Class:</label>
+                <input class="form-control" name="class" id="class" value="xClass" type="text" readonly="readonly" />
+            </div>
+            <div class="col-lg-3">
+                <label class="text-primary" for="section">Section:</label>
+                <input class="form-control" name="section" id="section" value="default" type="text" readonly="readonly" />
+            </div>
+            <div class="col-lg-3">
+                <label class="text-primary" for="assignment">Assignment:</label>
+                <input class="form-control" name="assignment" id="assignment" value="IOT29" type="text" readonly="readonly" />
+            </div>
+        </div>
+        <!-- -end-Student, class and assignment information-end -->
+
+        <!-- Calculate the correct path for saving the files -->
+        <script>Path = "&#92;OneDrive - MNSCU&#92;" + xClass + "&#92;" + document.getElementById("assignment").value + "&#92;"; </script>
+
+
+        <div class="col-lg-12">
+            <br />
+            <input class="text-danger btn-block btn-lg" name="Submit" value="Submit" type="submit" />
+            <br />
+        </div>
+
+        <div class="col-lg-12 h3 text-danger">
+            400 Points
+            <hr />
+        </div>
+
+        <!-- -start-objectives-start -->
+        <div class="col-lg-12"><a href="#Objectives" class="btn btn-info" data-toggle="collapse">Learning Objectives</a></div>
+        <div id="Objectives" class=" collapse in col-lg-12">
+
+            <!--Above this line similar except for Assignment number and title   -->
+
+
+            <p>
+                This assignment introduces ways to create Python GUI interfaces on a Raspberry Pi.<br />
+                You can use either the <a href="https://lambertk.academic.wlu.edu/breezypythongui/" target="_blank" class="bg-info text-white">BreezyPythonGUI</a> by Lambert or use the <a href="https://www.pysimplegui.com/"  target="_blank" class="bg-info text-white" >PySimpleGUI</a>
+            </p>
+
+            <hr />
+        </div>
+
+
+
+        <div class="col-lg-12"><a href="#Overview" class="btn btn-info" data-toggle="collapse">Assignment Overview</a></div>
+
+        <div id="Overview" class="collapse in">
+            <div class="col-lg-12">
+                <p>
+                    The purpose of this assignment is to gain experience creating Python 
+                    GUI applications from existing Python code.<br />
+                    This shows you how to create simple user interfaces for others who will be using your work.
+                </p>
+                <hr />
+            </div>
+
+        </div>
+
+        <div class=" col-lg-12"><a href="#Exercise01" class="btn btn-info" data-toggle="collapse">Exercise 1-Executables and GUIs</a></div>
+
+        <div id="Exercise01" class="collapse in">
+            <div class="col-lg-12">
+                <p>
+                    Using VNC connect to your Raspberry Pi.<br />
+
+                    Open File Manager and navigate to /home/pi/Desktop/MIS312_Formative04 
+                    <br />
+                    If you do not see the files:<br />
+                    breezypythongui.py<br />
+                    buttondemo.py
+                    <br />
+                    guiTemplate.py
+                    <br />
+                    vcgen.py<br />
+                    realize that copies of these files are included in the Formative04 folder.
+                    <br />
+                    Use VNC 'File Transfer...' to move copies from your computer to this folder on the Raspberry Pi.
+                    <br />
+
+
+                    <br />
+
+                    <a href="images/reqfiles.PNG" class="img-responsive img-rounded" target="popup" onclick="window.open('Images/reqfiles.PNG', 'popup'); return false;">
+                        <img src="images/reqfiles.PNG" class="img-rounded img-responsive" alt="required files " width="200" /></a>
+                    <br />
+                    Required Files<br />
+
+                    <br />
+
+
+
+
+                </p>
+
+                <p>
+                    Using the contents of these files as a starting point, create a Python program named  'formative04.py' located in '/home/pi/Desktop/MIS312_Formative04&#39;
+                    <br />
+
+
+                    <a href="images/gui.PNG" class="img-responsive img-rounded" target="popup" onclick="window.open('Images/gui.PNG', 'popup'); return false;">
+                        <img src="images/gui.PNG" class="img-rounded img-responsive" alt="gui " width="200" /></a>
+                    <br />
+                    GUI App<br />
+
+                </p>
+
+
+
+
+                <p>
+                    <a href="images/cpuErrors.PNG" class="img-responsive img-rounded" target="popup" onclick="window.open('Images/cpuErrors.PNG', 'popup'); return false;">
+                        <img src="images/cpuErrors.PNG" class="img-rounded img-responsive" alt="gui " width="200" /></a>
+                    <br />
+                    GUI App Showing Errors<br />
+                    Note this program is not correct-<br />
+                    The shell lists the errors, but the label only states 'None'
+
+                </p>
+
+
+
+
+
+
+
+                <p>
+                    Note that there are several ways to do this.<br />
+
+                    Hint-begin with buttondemo.py
+                    <br />
+
+                    Realize it is better to comment out lines of code than to delete them.
+                    <br />
+
+                    At a minimum for output you need one label and two buttons.
+                    <br />
+
+
+
+                </p>
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+
+
+            <div>
+                <div class="col-lg-12 ">
+
+                    <p>
+                        Once you have created Formative04.py  run the file.
+                        <br />
+
+                        If an error appears, troubleshoot to resolve the error(s) 
+                        <br />
+
+
+                        (50) 1. What is the purpose of the Clear button ? :<br />
+                        <!-- Enter your answer in the VALUE field below   GROK -->
+                        <input name="q1" type="text" id="q1" size="150" maxlength="150" class="form-control" value="purpose:" />
+                        <br />
+
+
+                    </p>
+                    <hr />
+
+
+
+                    <p>
+                        Reflect on what this GUI program does.<br />
+
+                        Suggest a further improvement.
+                        <br />
+
+
+
+
+                        (50) 2. What can be improved?<br />
+
+                        <!-- Enter your answer in the VALUE field below   GROK -->
+                        <input name="q2" type="text" id="q2" size="150" maxlength="150" class="form-control" value="improvement:" />
+                        <br />
+                    </p>
+                    <hr />
+
+
+                    <p>
+                        (50) 3. Make a screen shot of your Formative04.py GUI application running. 
+
+
+
+
+		Save the screen shot  as &quot;Ex1&quot; in your ' 
+                 <code><span id="aPath"></span></code>
+                        <script>document.getElementById("aPath").innerHTML = Path; </script>
+                        ' folder.<br />
+
+
+                        <p><strong>(150)</strong> 4. Upload a copy of  'Ex1' to the D2L 'Formative04' Assignment folder.</p>
+
+
+                </div>
+
+                <div class="col-lg-12 text-danger">
+                    <h2>Screen Shot Ex1</h2>
+                    <hr />
+                </div>
+
+
+
+
+
+                <br />
+
+                <hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                <hr />
+
+            </div>
+
+
+        </div>
+
+        <!--  From here to end difference question numbers and Summative numbering for PDF of file uploaded to D2L    -->
+
+
+        <div class="col-lg-12"><a href="#ExerciseAssignmentSubmission" class="btn btn-info" data-toggle="collapse">Exercise-Assignment Submission</a></div>
+
+        <div id="ExerciseAssignmentSubmission" class="collapse in  col-lg-12">
+            <p>
+                Use a browser to view your completed and published website at: https://classes.winona.edu/...     
+            </p>
+
+            (50) 5. Home Page Hyperlink<br />
+            Check and verify that this assignment is hyperlinked on your home page.<br />
+            <br />
+
+            (50) 6. Assignment submission<br />
+            Press the Submit button at the top or bottom of this page.
+                Read and follow instructions on the confirmation page.&nbsp; Correct any errors.
+        </div>
+        <hr />
+
+
+
+
+
+        <div class="col-lg-12">
+            <br />
+            <input class="text-danger btn-block btn-lg" name="Submit" value="Submit" type="submit" />
+            <br />
+        </div>
+
+
+    </form>
+
+
+
+    <!-- Creative Commons License Info -->
+    <div id="xLicense" class=" col-lg-12 text-muted"></div>
+
+    <div id="xfooter" class=" col-lg-12 text-muted"></div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../../ReadOnly/jquery-1.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../../ReadOnly/bootstrap.js"></script>
+
+</body>
+</html>

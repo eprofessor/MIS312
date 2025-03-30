@@ -1,0 +1,1 @@
+PgP 4/15/2024- next version of this assignment-consider adding either another button that runs GrovePi Reset Program, or if anything comes back from vcgen besides 'No issues found' then the GrovePi reset program is run automatically.
