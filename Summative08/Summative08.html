@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- PgP 6/15/2019 update page, added integral check web db submissions, split constants into two files, one for students, one for course -->
+    <!-- Bootstrap -->
+    <link href="../../ReadOnly/bootstrap.css" rel="stylesheet">
+
+    <!-- constant file for student firstname, lastname, starid on students' pages -->
+    <script src="../constants.js"></script>
+
+    <!-- course constant file that contains semester, class, section pages -->
+    <script src="../../ReadOnly/CourseConstants.js"></script>
+
+    <title>MIS312 Summative08</title>
+</head>
+
+<body onload="setVariables()">
+
+    <form class="container-fluid" action="https://eprofessor.azurewebsites.net/code/ProcessFormData.asp" method="post" name="frmAssignment" id="frmAssignment">
+        <input name="InstID" id="InstID" value="00617282" type="hidden" />
+
+        <h1 class=" text-center">Python vs. JavaScript for Development</h1>
+
+        <!-- -start-Student, class and assignment information. Assignment hard-coded, other values from constants.js file-start -->
+        <div class="row col-lg-12">
+            <div class="col-lg-3">
+                <label class="text-primary" for="FirstName">First Name:</label>
+                <input class="form-control" name="FirstName" id="FirstName" type="text" value="default first name" readonly="readonly" />
+            </div>
+            <div class="col-lg-3">
+                <label class="text-primary" for="LastName">Last Name:</label>
+                <input class="form-control" name="LastName" id="LastName" type="text" value="default last name" readonly="readonly" />
+            </div>
+            <div class="col-lg-3">
+                <label class="text-primary" for="pin">StarID:</label>
+                <input class="form-control" name="pin" id="pin" type="text" value="default StarID" readonly="readonly" />
+            </div>
+            <div class="col-lg-3">
+                <label class="text-primary" for="email">Email:</label>
+                <input class="form-control" name="email" id="email" type="email" value="default email address" readonly="readonly" />
+            </div>
+        </div>
+
+
+        <div class="row col-lg-12">
+            <div class="col-lg-3">
+                <label class="text-primary" for="semester">Semester:</label>
+                <input class="form-control" name="semester" id="semester" type="text" value="default" readonly="readonly" />
+            </div>
+            <div class="col-lg-3">
+                <label class="text-primary" for="class">Class:</label>
+                <input class="form-control" name="class" id="class" value="xClass" type="text" readonly="readonly" />
+            </div>
+            <div class="col-lg-3">
+                <label class="text-primary" for="section">Section:</label>
+                <input class="form-control" name="section" id="section" value="default" type="text" readonly="readonly" />
+            </div>
+            <div class="col-lg-3">
+                <label class="text-primary" for="assignment">Assignment:</label>
+                <input class="form-control" name="assignment" id="assignment" value="Summative08" type="text" readonly="readonly" />
+            </div>
+        </div>
+        <!-- -end-Student, class and assignment information-end -->
+
+        <!-- Calculate the correct path for saving the files -->
+        <script>Path = "&#92;OneDrive - MNSCU&#92;" + xClass + "&#92;" + document.getElementById("assignment").value + "&#92;"; </script>
+
+
+        <div class="col-lg-12">
+            <br />
+            <input class="text-danger btn-block btn-lg" name="Submit" value="Submit" type="submit" />
+            <br />
+        </div>
+
+        <div class="col-lg-12 h3 text-danger">
+            400 Points
+            <hr />
+        </div>
+
+        <!-- -start-objectives-start -->
+        <div class="col-lg-12"><a href="#Objectives" class="btn btn-info" data-toggle="collapse">Learning Objectives</a></div>
+        <div id="Objectives" class=" collapse in col-lg-12">
+
+            <!--Above this line similar except for Assignment number and title   -->
+
+
+            <p>This assignment makes you aware of factors to consider for when to use Python or JavaScript.</p>
+
+            <p>After completing this assignment you will have an appreciation for the value of computer programming skills.</p>
+            <hr />
+        </div>
+
+
+
+        <div class="col-lg-12"><a href="#Overview" class="btn btn-info" data-toggle="collapse">Assignment Overview</a></div>
+
+        <div id="Overview" class="collapse in">
+            <div class="col-lg-12">
+                <p>
+                    The purpose of this assignment is to listen to the  recordings and reflect on the importance of these technologies.
+                </p>
+                <hr />
+            </div>
+
+        </div>
+
+        <div class=" col-lg-12"><a href="#Exercise01" class="btn btn-info" data-toggle="collapse">Exercise 1-Concepts</a></div>
+
+        <div id="Exercise01" class="collapse in">
+            <div class="col-lg-12">
+                <p>
+                    Open your browser to LinkedIn Learning and open the appropriate course.<br />
+                    <a class="bg-info text-white" href="https://www.linkedin.com/learning/collections/enterprise/1~AAAAAAJ_k9Q=2343098?u=41915348" target="_blank">MIS312_LinkedIn Learning</a>
+                </p>
+            </div>
+
+
+
+            <div class="col-lg-12">
+                <p>
+                    For this  Exercise listen to the LinkedIn Learning course: <a href="https://www.linkedin.com/learning/python-vs-javascript-for-development/" class="bg-info text-white"   target="_blank"   >&#39;Python vs. JavaScript for Development&#39; </a>and answer the following question.</p>
+                <p>
+                    In Chapter 4 in the video &#39;Career opportunities in Python&#39;, do they mention any Python career paths that may be of interest to you?<br />
+                </p>
+            </div>
+
+            <div>
+                <div class="col-lg-12 ">
+
+                    <p>
+                        (100) 1. Briefly state the most 
+                        interesting Python career path that appeals to you.&nbsp; If none are listed in this video, use an AI assistant to find one:<br />
+                        <!-- Enter your answer in the VALUE field below   GROK -->
+                        <input name="q1" type="text" id="q1" size="150" maxlength="150" class="form-control" value="career path:" />
+                        <br />
+                    </p>
+                    <hr />
+
+                </div>
+
+
+            </div>
+        </div>
+
+        <hr />
+
+        <!--  From here to end difference question numbers and Summative numbering for PDF of file uploaded to D2L    -->
+
+
+        <div class="col-lg-12"><a href="#ExerciseAssignmentSubmission" class="btn btn-info" data-toggle="collapse">Exercise-Assignment Submission</a></div>
+
+        <div id="ExerciseAssignmentSubmission" class="collapse in  col-lg-12">
+            <p>
+                Use a browser to view your completed and published website at: https://classes.winona.edu/...     
+				<br />
+                Ensure that you have linked this assignment on your home page.</p>
+			<p>
+                (200) 2. <strong>Print a pdf file of the LinkedIn Learning Certificate of Completion for this course and upload to the D2L &#39;Summative08&#39; folder.</strong>
+            </p>
+
+            (50) 3. Home Page Hyperlink<br />
+            Check and verify that this assignment is hyperlinked on your home page.<br />
+            <br />
+
+            (50) 4. Assignment submission<br />
+            Press the Submit button at the top or bottom of this page.
+                Read and follow instructions on the confirmation page.&nbsp; Correct any errors.
+        </div>
+        <hr />
+
+
+
+
+        <div class="col-lg-12">
+            <br />
+            <input class="text-danger btn-block btn-lg" name="Submit" value="Submit" type="submit" />
+            <br />
+        </div>
+
+
+    </form>
+
+
+
+    <!-- Creative Commons License Info -->
+    <div id="xLicense" class=" col-lg-12 text-muted"></div>
+
+    <div id="xfooter" class=" col-lg-12 text-muted"></div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../../ReadOnly/jquery-1.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../../ReadOnly/bootstrap.js"></script>
+
+</body>
+</html>
